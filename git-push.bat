@@ -1,9 +1,8 @@
 @echo off
 C:
 cd \Users\info\Desktop\Forkfinder
-git add .
-git commit -m "Update"
-git push origin main
+git remote set-url origin https://github.com/JayJaspen/forkfinder.git
+git push -u origin main
 echo.
-echo === Pusha klar! ===
+echo === Push klar! ===
 pause
