@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #d4af37;
+  --gold-light: #f4e4a6;
+  --gold-dark: #b8960c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+@layer components {
+  .gold-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+  }
+
+  .luxury-card {
+    background: linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(38,38,38,0.95) 100%);
+    border: 1px solid rgba(212,175,55,0.3);
+    box-shadow: 0 8px 32px rgba(212,175,55,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .luxury-card:hover {
+    border-color: rgba(212,175,55,0.6);
+    box-shadow: 0 12px 48px rgba(212,175,55,0.18);
+    transform: translateY(-2px);
+  }
+
+  .luxury-button {
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 50%, #d4af37 100%);
+    color: #000;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+  }
+
+  .luxury-button:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(212,175,55,0.4);
+  }
+
+  .luxury-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .luxury-button-outline {
+    background: transparent;
+    color: #d4af37;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #d4af37;
+  }
+
+  .luxury-button-outline:hover {
+    background: rgba(212,175,55,0.1);
+  }
+
+  .luxury-input {
+    background: rgba(26,26,26,0.8);
+    border: 1px solid rgba(212,175,55,0.3);
+    color: white;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .luxury-input:focus {
+    outline: none;
+    border-color: rgba(212,175,55,0.8);
+    box-shadow: 0 0 20px rgba(212,175,55,0.15);
+  }
+
+  .luxury-input::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
+
+  .luxury-select {
+    background: rgba(26,26,26,0.8);
+    border: 1px solid rgba(212,175,55,0.3);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .luxury-select:focus {
+    outline: none;
+    border-color: rgba(212,175,55,0.8);
+  }
+
+  .luxury-select option {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 3px; }
