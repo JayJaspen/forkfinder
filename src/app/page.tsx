@@ -44,7 +44,7 @@ export default function LandingPage() {
             Lunchmenyer och kvällsmenyer från de bästa restaurangerna nära dig – sorterat på stad och kategori.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/registrera/anvandare" className="luxury-button px-8 py-3">
+            <Link href="/lunch" className="luxury-button px-8 py-3">
               HITTA LUNCH NU
             </Link>
             <Link href="/registrera/restaurang"
