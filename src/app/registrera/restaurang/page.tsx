@@ -54,37 +54,40 @@ export default function RegisterRestaurantPage() {
     if (form.password.length < 6) { setError('Lösenordet måste vara minst 6 tecken.'); return }
     setLoading(true); setError('')
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email: form.invoiceEmail || `${form.orgNumber}@restaurant.forkfinder`,
-      password: form.password,
-      options: { data: { user_type: 'restaurant', public_name: form.publicName } }
+    const email = form.invoiceEmail || `${form.orgNumber}@restaurant.forkfinder`
+
+    const res = await fetch('/api/register-restaurant', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password: form.password,
+        publicName: form.publicName,
+        restaurantData: {
+          org_number: form.orgNumber,
+          registered_name: form.registeredName,
+          public_name: form.publicName,
+          county: form.county, city: form.city,
+          street_address: form.streetAddress, zip_code: form.zipCode,
+          phone: form.phone || null, website: form.website || null,
+          food_types: form.foodTypes,
+          invoice_type: form.invoiceType,
+          invoice_email: form.invoiceType === 'email' ? form.invoiceEmail : null,
+          invoice_address: form.invoiceType === 'postal'
+            ? { street: form.invoiceStreet, zip_code: form.invoiceZip, city: form.invoiceCity } : null,
+          is_approved: false, is_visible: false,
+        },
+        extraLocations,
+      }),
     })
-    if (signUpError) { setError(signUpError.message); setLoading(false); return }
 
-    if (data.user) {
-      const { error: dbError } = await supabase.from('restaurants').insert({
-        id: data.user.id,
-        org_number: form.orgNumber,
-        registered_name: form.registeredName,
-        public_name: form.publicName,
-        county: form.county, city: form.city,
-        street_address: form.streetAddress, zip_code: form.zipCode,
-        phone: form.phone || null, website: form.website || null,
-        food_types: form.foodTypes,
-        invoice_type: form.invoiceType,
-        invoice_email: form.invoiceType === 'email' ? form.invoiceEmail : null,
-        invoice_address: form.invoiceType === 'postal'
-          ? { street: form.invoiceStreet, zip_code: form.invoiceZip, city: form.invoiceCity } : null,
-        is_approved: false, is_visible: false,
-      })
-      if (dbError) { setError('Fel vid sparande: ' + dbError.message); setLoading(false); return }
+    const data = await res.json()
+    if (!res.ok) { setError('Fel vid sparande: ' + data.error); setLoading(false); return }
 
-      if (extraLocations.length > 0) {
-        await supabase.from('restaurant_locations').insert(
-          extraLocations.map(loc => ({ restaurant_id: data.user!.id, county: loc.county, city: loc.city }))
-        )
-      }
-    }
+    // Logga in med de nya uppgifterna
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password: form.password })
+    if (signInError) { setError(signInError.message); setLoading(false); return }
+
     router.push('/restaurang/dashboard')
     router.refresh()
   }
